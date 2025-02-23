@@ -33,14 +33,10 @@ export default function RegisterPage() {
             role,
         });
 
-        if (data.user.role === "seller") {
-            localStorage.setItem("sellerToken", data.token.accsess);
-            localStorage.setItem("refreshToken", data.token.refresh);
-            localStorage.setItem("seller", JSON.stringify(data.user));
-            window.location.href = "/seller";
-        } else {
-            alert("Qayta ro'yxatdan o'ting");
-        }
+        localStorage.setItem("sellerToken", data.token.accsess);
+        localStorage.setItem("refreshToken", data.token.refresh);
+        localStorage.setItem("seller", JSON.stringify(data.user));
+        window.location.href = "/seller";
     };
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">

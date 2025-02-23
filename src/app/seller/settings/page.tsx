@@ -535,7 +535,7 @@ export default function SettingsPage() {
                                 {typeof storeData.logo === "string" &&
                                     storeData.logo && (
                                         <img
-                                            src={`http://localhost:4000/store/${storeData.logo}`}
+                                            src={`https://desirable-stillness-production.up.railway.app/store/${storeData.logo}`}
                                             alt="Dokon logosi"
                                             className="mt-2 w-32 h-32 object-cover rounded"
                                         />

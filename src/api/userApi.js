@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const userApi = createApi({
     reducerPath: "userApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:4000",
+        baseUrl: "https://desirable-stillness-production.up.railway.app",
         prepareHeaders: (headers, { getState }) => {
             if (typeof window !== "undefined") {
                 const href = window.location.href.split("/")[3];
@@ -19,9 +19,8 @@ export const userApi = createApi({
                 } else if (href === "admin") {
                     token = localStorage.getItem("adminToken");
                     console.log(href);
-                    
-                    headers.set("authorization", `Bearer ${token}`);
 
+                    headers.set("authorization", `Bearer ${token}`);
                 } else if (href === "seller") {
                     token = localStorage.getItem("sellerToken");
                     headers.set("authorization", `Bearer ${token}`);

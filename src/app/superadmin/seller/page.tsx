@@ -10,7 +10,7 @@ import { useSignupMutation } from "@/api/authApi";
 
 export default function SellerPage() {
     if (typeof window !== "undefined") {
-        const token = localStorage.getItem("adminToken");
+        const token = localStorage.getItem("superadminToken");
         if (!token) {
             window.location.href = "/admin/login";
         }

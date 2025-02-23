@@ -266,7 +266,7 @@ export default function CategoriesPage() {
                                                                                                 key={
                                                                                                     index
                                                                                                 }
-                                                                                                src={`http://localhost:4000/product/${image}`}
+                                                                                                src={`https://desirable-stillness-production.up.railway.app/product/${image}`}
                                                                                                 alt={`${
                                                                                                     product.name
                                                                                                 } rasmi ${

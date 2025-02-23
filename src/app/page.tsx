@@ -3,13 +3,6 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 
 export default function page() {
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            if (!localStorage.getItem("sellerToken")) {
-                window.location.href = "/seller/login";
-            }
-        }
-    }, []);
     return (
         <div className="flex gap-10 mt-40 justify-center">
             <Link

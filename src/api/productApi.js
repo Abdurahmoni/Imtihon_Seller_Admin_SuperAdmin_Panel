@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const productApi = createApi({
     reducerPath: "productApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:4000",
+        baseUrl: "https://desirable-stillness-production.up.railway.app",
         prepareHeaders: (headers, { getState }) => {
             if (typeof window !== "undefined") {
                 const href = window.location.href.split("/")[3];
@@ -43,7 +43,7 @@ export const productApi = createApi({
             query: (credentials) => ({
                 url: "/products/" + credentials.id,
                 method: "PATCH",
-                body: credentials,
+                body: credentials.body,
             }),
         }),
         deleteProduct: builder.mutation({

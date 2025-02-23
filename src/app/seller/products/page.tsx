@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 import {
     useAddProductMutation,
     useGetProductsSellerQuery,
@@ -9,6 +8,7 @@ import {
     useAddProdactImageMutation,
     useDeleteProductImageMutation,
 } from "@/api/productApi";
+import { useGetAllCategorieQuery } from "@/api/categorieApi";
 
 export default function ProductsPage() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -61,8 +61,7 @@ export default function ProductsPage() {
 
     const {
         data: products,
-        isLoading,
-        error,
+
         refetch,
     } = useGetProductsSellerQuery([]);
     const [addProduct] = useAddProductMutation();
@@ -71,17 +70,19 @@ export default function ProductsPage() {
     const [addProductImage] = useAddProdactImageMutation();
     const [deleteProductImage] = useDeleteProductImageMutation();
 
-    const categories =
-        products?.reduce((acc: any[], product: any) => {
-            if (
-                product.category?.name &&
-                !acc.find((cat) => cat.name === product.category.name)
-            ) {
-                const maxId = Math.max(...acc.map((cat) => cat.id || 0), 0) + 1;
-                acc.push({ name: product.category.name, id: maxId });
-            }
-            return acc;
-        }, []) || [];
+    // const categories =
+    //     products?.reduce((acc: any[], product: any) => {
+    //         if (
+    //             product.category?.name &&
+    //             !acc.find((cat) => cat.name === product.category.name)
+    //         ) {
+    //             const maxId = Math.max(...acc.map((cat) => cat.id || 0), 0) + 1;
+    //             acc.push({ name: product.category.name, id: maxId });
+    //         }
+    //         return acc;
+    //     }, []) || [];
+    const { data: categories } = useGetAllCategorieQuery([]);
+    console.log(categories);
 
     const handleInputChange = (
         e: React.ChangeEvent<
@@ -153,8 +154,8 @@ export default function ProductsPage() {
                 description: "",
                 price: 0,
                 image: [],
-                seller_id: productData.seller_id, 
-                store_id: productData.store_id, 
+                seller_id: productData.seller_id,
+                store_id: productData.store_id,
                 category_id: 1,
             });
             setEditingProductId(null);
@@ -228,10 +229,10 @@ export default function ProductsPage() {
         try {
             await deleteProductImage({
                 id: productId,
-                index: imageIndex, // `index` nomini to‘g‘ri ishlatish
+                index: imageIndex,
             }).unwrap();
             refetch();
-            setCurrentImageIndex(0); // O‘chirilgandan so‘ng index’i 0 ga qaytarish
+            setCurrentImageIndex(0);
         } catch (error) {
             console.error("Rasm o‘chirishda xatolik:", error);
         }
@@ -266,7 +267,6 @@ export default function ProductsPage() {
                     ko‘rishingiz va boshqarishingiz mumkin.
                 </p>
 
-                {/* Qidiruv, Filtrlash va Mahsulot Qo‘shish (tepadan) */}
                 <div className="mb-6 flex justify-between items-center gap-4">
                     <input
                         type="text"
@@ -283,7 +283,7 @@ export default function ProductsPage() {
                         className="w-1/3 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500"
                     >
                         <option value="">Barcha kategoriyalar</option>
-                        {categories.map(
+                        {categories?.map(
                             (category: { name: string; id: number }) => (
                                 <option key={category.id} value={category.name}>
                                     {category.name}
@@ -335,9 +335,9 @@ export default function ProductsPage() {
                         <tbody className="bg-white divide-y divide-gray-200">
                             {filteredProducts.map((product: any) => {
                                 const orderCount =
-                                    product.orderItems?.length || 0; // Buyurtma soni
+                                    product.orderItems?.length || 0;
                                 const cartCount =
-                                    product.cartItems?.length || 0; // Cart’da saqlangan soni
+                                    product.cartItems?.length || 0;
 
                                 return (
                                     <tr
@@ -346,7 +346,7 @@ export default function ProductsPage() {
                                         onClick={() => {
                                             setSelectedProduct(product);
                                             setIsImageModalOpen(true);
-                                            setCurrentImageIndex(0); // Modal ochilganda index’i 0 ga qaytarish
+                                            setCurrentImageIndex(0);
                                         }}
                                     >
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
@@ -373,7 +373,7 @@ export default function ProductsPage() {
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <img
-                                                src={`http://localhost:4000/product/${
+                                                src={`https://desirable-stillness-production.up.railway.app/product/${
                                                     product.image?.[0] ||
                                                     "default-image.png"
                                                 }`}
@@ -385,7 +385,7 @@ export default function ProductsPage() {
                                             <div className="flex gap-2">
                                                 <button
                                                     onClick={(e) => {
-                                                        e.stopPropagation(); // Satirni ochishni oldini olish
+                                                        e.stopPropagation();
                                                         handleEdit(product);
                                                     }}
                                                     className="text-teal-600 hover:text-teal-700"
@@ -394,7 +394,7 @@ export default function ProductsPage() {
                                                 </button>
                                                 <button
                                                     onClick={(e) => {
-                                                        e.stopPropagation(); // Satirni ochishni oldini olish
+                                                        e.stopPropagation();
                                                         handleDelete(
                                                             product.id
                                                         );
@@ -412,7 +412,6 @@ export default function ProductsPage() {
                     </table>
                 </div>
             </main>
-            {/* Mahsulot qo‘shish/yangilash modal */}
             {isAddModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 z-60 flex items-center justify-center">
                     <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
@@ -506,7 +505,7 @@ export default function ProductsPage() {
                                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500"
                                     required
                                 >
-                                    {categories.map(
+                                    {categories?.map(
                                         (category: {
                                             name: string;
                                             id: number;
@@ -552,7 +551,6 @@ export default function ProductsPage() {
                     </div>
                 </div>
             )}
-            {/* Mahsulot rasmini katta ko‘rish modal (yanada yaxshi ko‘rinish bilan) */}
             {isImageModalOpen && selectedProduct && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 z-60 flex items-center justify-center">
                     <div className="bg-white p-6 rounded-xl shadow-xl w-full max-w-2xl transform transition-transform duration-300 ease-in-out scale-100 opacity-100">
@@ -564,7 +562,7 @@ export default function ProductsPage() {
                                 (img: string, index: number) => (
                                     <img
                                         key={index}
-                                        src={`http://localhost:4000/product/${img}`}
+                                        src={`https://desirable-stillness-production.up.railway.app/product/${img}`}
                                         alt={`${selectedProduct.name} rasm ${
                                             index + 1
                                         }`}
@@ -641,13 +639,11 @@ export default function ProductsPage() {
                                                 await handleSaveImages(
                                                     selectedProduct.id
                                                 );
-                                                // Ma’lumotlarni yangilab olish, lekin modal yopilmaydi
-                                                await refetch(); // `refetch().unwrap()` o‘rniga `refetch()` ishlatildi
-                                                // selectedProduct ni yangilash uchun yangi ma’lumotlarni olish
+                                                await refetch();
                                                 const updatedProducts =
-                                                    await refetch(); // Ma’lumotlar object sifatida qaytariladi
+                                                    await refetch();
                                                 const updatedData =
-                                                    updatedProducts.data; // Data ni olish
+                                                    updatedProducts.data;
                                                 const updatedProduct =
                                                     updatedData.find(
                                                         (p: any) =>
@@ -658,7 +654,7 @@ export default function ProductsPage() {
                                                     setSelectedProduct(
                                                         updatedProduct
                                                     );
-                                                    setCurrentImageIndex(0); // Yangilangandan so‘ng index’i 0 ga qaytarish
+                                                    setCurrentImageIndex(0);
                                                 }
                                             }}
                                             className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors duration-300"
@@ -673,7 +669,6 @@ export default function ProductsPage() {
                                         </button>
                                     </div>
                                 )}
-                                {/* Faqat ko‘rinayotgan rasmini o‘chirish imkoniyati (index 0 dan boshlanadi) */}
                                 {selectedProduct.image?.map(
                                     (img: string, index: number) => {
                                         const isCurrentImage =
@@ -684,7 +679,7 @@ export default function ProductsPage() {
                                                 className="flex items-center gap-2"
                                             >
                                                 <img
-                                                    src={`http://localhost:4000/product/${img}`}
+                                                    src={`https://desirable-stillness-production.up.railway.app/product/${img}`}
                                                     alt={`${
                                                         selectedProduct.name
                                                     } rasm ${index + 1}`}

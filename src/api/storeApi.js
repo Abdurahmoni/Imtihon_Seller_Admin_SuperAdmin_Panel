@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const storeApi = createApi({
     reducerPath: "storeApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:4000",
+        baseUrl: "https://desirable-stillness-production.up.railway.app",
         prepareHeaders: (headers, { getState }) => {
             if (typeof window !== "undefined") {
                 const href = window.location.href.split("/")[3];
