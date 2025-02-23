@@ -6,7 +6,7 @@ export const ordersApi = createApi({
         baseUrl: "https://desirable-stillness-production.up.railway.app",
         prepareHeaders: (headers, { getState }) => {
             if (typeof window !== "undefined") {
-                const href = window.location.href.split("/")[1];
+                const href = window.location.href.split("/")[3];
 
                 let token = localStorage.getItem("userToken");
                 console.log("ordersApi", href);
