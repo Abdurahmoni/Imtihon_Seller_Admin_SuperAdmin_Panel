@@ -22,9 +22,9 @@ export default function OrdersPage() {
     const [selectedOrderData, setSelectedOrderData] = useState<any>(null);
     useEffect(() => {
         if (typeof window !== "undefined") {
-            const sellerToken = localStorage.getItem("sellerToken");
+            const sellerToken = localStorage.getItem("adminToken");
             if (!sellerToken) {
-                window.location.href = "/seller/login";
+                window.location.href = "/admin/login";
             }
 
             const storedStore = localStorage.getItem("stores");
