@@ -6,7 +6,6 @@ super admin login paroli default backendda yaratiladi
 Login:superAdmin@gmail.com
 password: 123456 (ozim yaratib qoygan admin seller userlarning barchasini paroli 123456)
 
-
 bazi bir baglar bolishi mumkin bu vaqt kamligi sababli yuzaga keldi
 
 **MyProject** – bu zamonaviy va intuitiv foydalanuvchi interfeysiga ega veb-sayt bo‘lib, bu odamlarga uyidan chiqmasdan uzum marketdanham qulayroq bolgan iterfacega ega bolgan sayt bu orqali istagan narsanggizni buyurtma qilib judaham tez vat oraligida buyurtmani olihinggiz mumkin
