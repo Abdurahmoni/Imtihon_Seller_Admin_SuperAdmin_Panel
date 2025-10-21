@@ -199,7 +199,7 @@ export default function SaidBar({
                                                 }
                                             >
                                                 <img
-                                                    src={`https://desirable-stillness-production.up.railway.app/store/${store.logo}`}
+                                                    src={`http://localhost:4000/store/${store.logo}`}
                                                     alt={store.name}
                                                     className="w-8 h-8 rounded-full mr-2"
                                                 />

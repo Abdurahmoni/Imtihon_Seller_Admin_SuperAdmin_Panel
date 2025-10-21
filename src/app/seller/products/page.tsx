@@ -373,7 +373,7 @@ export default function ProductsPage() {
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <img
-                                                src={`https://desirable-stillness-production.up.railway.app/product/${
+                                                src={`http://localhost:4000/product/${
                                                     product.image?.[0] ||
                                                     "default-image.png"
                                                 }`}
@@ -562,7 +562,7 @@ export default function ProductsPage() {
                                 (img: string, index: number) => (
                                     <img
                                         key={index}
-                                        src={`https://desirable-stillness-production.up.railway.app/product/${img}`}
+                                        src={`http://localhost:4000/product/${img}`}
                                         alt={`${selectedProduct.name} rasm ${
                                             index + 1
                                         }`}
@@ -679,7 +679,7 @@ export default function ProductsPage() {
                                                 className="flex items-center gap-2"
                                             >
                                                 <img
-                                                    src={`https://desirable-stillness-production.up.railway.app/product/${img}`}
+                                                    src={`http://localhost:4000/product/${img}`}
                                                     alt={`${
                                                         selectedProduct.name
                                                     } rasm ${index + 1}`}

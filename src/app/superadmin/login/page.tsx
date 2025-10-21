@@ -10,6 +10,7 @@ export default function LoginPage() {
             window.location.href = "/superadmin";
         }
     }
+        console.log("aa");
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -24,6 +25,7 @@ export default function LoginPage() {
             localStorage.setItem("superadmin", JSON.stringify(data.user));
             window.location.href = "/superadmin";
         } else {
+
             alert("Bunday foydalanuvchi mavjud emas");
         }
     };

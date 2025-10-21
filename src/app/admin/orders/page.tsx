@@ -374,7 +374,7 @@ export default function OrdersPage() {
                                                         className="relative w-full h-40 rounded-lg overflow-hidden shadow-md"
                                                     >
                                                         <img
-                                                            src={`https://desirable-stillness-production.up.railway.app/product/${image}`}
+                                                            src={`http://localhost:4000/product/${image}`}
                                                             alt={`${
                                                                 item.product
                                                                     ?.name ||

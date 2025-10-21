@@ -3,10 +3,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const authApi = createApi({
     reducerPath: "authApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://desirable-stillness-production.up.railway.app",
+        baseUrl: "http://localhost:4000",
         prepareHeaders: (headers, { getState }) => {
             if (typeof window !== "undefined") {
-                const href = window.location.href.split("/")[3];
+                const href = window.location.href.split("/")[2];
 
                 let token = localStorage.getItem("userToken");
 
