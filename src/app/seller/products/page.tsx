@@ -379,7 +379,7 @@ export default function ProductsPage() {
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <img
-                                                src={`http://localhost:4000/product/${
+                                                src={`https://imtihonbackend-production-235e.up.railway.app/product/${
                                                     product.image?.[0] ||
                                                     "default-image.png"
                                                 }`}
@@ -568,7 +568,7 @@ export default function ProductsPage() {
                                 (img: string, index: number) => (
                                     <img
                                         key={index}
-                                        src={`http://localhost:4000/product/${img}`}
+                                        src={`https://imtihonbackend-production-235e.up.railway.app/product/${img}`}
                                         alt={`${selectedProduct.name} rasm ${
                                             index + 1
                                         }`}
@@ -685,7 +685,7 @@ export default function ProductsPage() {
                                                 className="flex items-center gap-2"
                                             >
                                                 <img
-                                                    src={`http://localhost:4000/product/${img}`}
+                                                    src={`https://imtihonbackend-production-235e.up.railway.app/product/${img}`}
                                                     alt={`${
                                                         selectedProduct.name
                                                     } rasm ${index + 1}`}

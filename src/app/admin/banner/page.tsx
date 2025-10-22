@@ -206,13 +206,13 @@ export default function BannersPage() {
                     <div className="w-full md:w-8/12 h-[600px] relative rounded-lg overflow-hidden">
                         {selectedLargeBanner ? (
                             <img
-                                src={`http://localhost:4000/banners/${selectedLargeBanner.image}`}
+                                src={`https://imtihonbackend-production-235e.up.railway.app/banners/${selectedLargeBanner.image}`}
                                 alt={selectedLargeBanner.title}
                                 className="rounded-lg"
                             />
                         ) : banners && banners.length > 0 ? (
                             <img
-                                src={`http://localhost:4000/banners/${banners[0].image}`}
+                                src={`https://imtihonbackend-production-235e.up.railway.app/banners/${banners[0].image}`}
                                 alt={banners[0].title}
                                 className="rounded-lg"
                             />
@@ -251,7 +251,7 @@ export default function BannersPage() {
                                         }
                                     >
                                         <img
-                                            src={`http://localhost:4000/banners/${banner.image}`}
+                                            src={`https://imtihonbackend-production-235e.up.railway.app/banners/${banner.image}`}
                                             alt={banner.title}
                                             className="rounded-lg"
                                         />
@@ -593,7 +593,7 @@ export default function BannersPage() {
                                                 Joriy rasm:
                                             </p>
                                             <img
-                                                src={`http://localhost:4000/banners/${selectedBanner.image}`}
+                                                src={`https://imtihonbackend-production-235e.up.railway.app/banners/${selectedBanner.image}`}
                                                 alt={selectedBanner.title}
                                                 width={100}
                                                 height={100}

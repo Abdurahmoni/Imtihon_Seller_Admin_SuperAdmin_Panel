@@ -374,7 +374,7 @@ export default function OrdersPage() {
                                                         className="relative w-full h-40 rounded-lg overflow-hidden shadow-md"
                                                     >
                                                         <img
-                                                            src={`http://localhost:4000/product/${image}`}
+                                                            src={`https://imtihonbackend-production-235e.up.railway.app/product/${image}`}
                                                             alt={`${
                                                                 item.product
                                                                     ?.name ||

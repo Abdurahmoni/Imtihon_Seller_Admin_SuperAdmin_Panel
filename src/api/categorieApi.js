@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const categorieApi = createApi({
     reducerPath: "categorieApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:4000",
+        baseUrl:  "https://imtihonbackend-production-235e.up.railway.app",
         prepareHeaders: (headers, { getState }) => {
             if (typeof window !== "undefined") {
                 const href = window.location.href.split("/")[3];
