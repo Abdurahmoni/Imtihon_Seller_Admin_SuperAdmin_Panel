@@ -14,14 +14,12 @@ export const storeApi = createApi({
                 if (href === "superadmin") {
                     token = localStorage.getItem("superadminToken");
                 } else if (href === "admin") {
-                    console.log(href);
-
                     token = localStorage.getItem("adminToken");
-                    console.log(token);
 
                     headers.set("authorization", `Bearer ${token}`);
                 } else if (href === "seller") {
                     token = localStorage.getItem("sellerToken");
+
                 }
 
                 if (token) {

@@ -40,7 +40,8 @@ export default function SettingsPage() {
     const [isEditingStore, setIsEditingStore] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [currentStoreId, setCurrentStoreId] = useState<number | null>(null);
-
+    console.log(currentStoreId);
+    
     useEffect(() => {
         if (typeof window !== "undefined") {
             const sellerToken = localStorage.getItem("sellerToken");

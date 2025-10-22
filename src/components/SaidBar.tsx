@@ -107,7 +107,7 @@ export default function SaidBar({
                                     onClick={toggleSecondBar}
                                 >
                                     {stores?.length > 0
-                                        ? storedStore?.name
+                                        ? storedStore?.name 
                                         : "Do'kon qo'shish"}
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"

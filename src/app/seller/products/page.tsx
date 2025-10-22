@@ -9,6 +9,7 @@ import {
     useDeleteProductImageMutation,
 } from "@/api/productApi";
 import { useGetAllCategorieQuery } from "@/api/categorieApi";
+import { useGetStorMeQuery } from "@/api/storeApi";
 
 export default function ProductsPage() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -17,6 +18,8 @@ export default function ProductsPage() {
     const [isImageModalOpen, setIsImageModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<any>(null);
     const [store, setStore] = useState<any>(null);
+
+    const { data: storeData, refetch: refetchStoreData } = useGetStorMeQuery([]);
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -31,8 +34,9 @@ export default function ProductsPage() {
                 setStore(stores);
             }
         }
-    }, []);
-
+        refetchStoreData();
+    }, [localStorage.getItem("stores")]);
+    console.log("store", store);
     const [productData, setProductData] = useState({
         name: "",
         description: "",
@@ -61,13 +65,13 @@ export default function ProductsPage() {
             
         }
     }, [store]);
-            console.log("SS1",productData);
 
     const {
         data: products,
-
         refetch,
     } = useGetProductsSellerQuery([]);
+    // console.log("SS1", products);
+
     const [addProduct] = useAddProductMutation();
     const [updateProduct] = useUpdateProductMutation();
     const [deleteProduct] = useDeleteProductMutation();
@@ -86,7 +90,7 @@ export default function ProductsPage() {
     //         return acc;
     //     }, []) || [];
     const { data: categories } = useGetAllCategorieQuery([]);
-    console.log(categories);
+    // console.log(categories);
 
     const handleInputChange = (
         e: React.ChangeEvent<
@@ -166,7 +170,7 @@ export default function ProductsPage() {
             });
             setEditingProductId(null);
         } catch (error) {
-            console.error("Mahsulot qo‘shish/yangilashda xatolik:", error);
+            console.error("Mahsulot qo'shish/yangilashda xatolik:", error);
         }
     };
 
@@ -189,7 +193,7 @@ export default function ProductsPage() {
             await deleteProduct({ id: productId }).unwrap();
             refetch();
         } catch (error) {
-            console.error("Mahsulot o‘chirishda xatolik:", error);
+            console.error("Mahsulot o'chirishda xatolik:", error);
         }
     };
 
@@ -221,7 +225,7 @@ export default function ProductsPage() {
                 setNewImages([]);
                 setShowSaveButton(false);
             } catch (error) {
-                console.error("Rasm qo‘shishda xatolik:", error);
+                console.error("Rasm qo'shishda xatolik:", error);
             }
         }
     };
@@ -240,27 +244,36 @@ export default function ProductsPage() {
             refetch();
             setCurrentImageIndex(0);
         } catch (error) {
-            console.error("Rasm o‘chirishda xatolik:", error);
+            console.error("Rasm o'chirishda xatolik:", error);
         }
     };
 
-    const filteredProducts =
-        products?.filter((product: any) => {
-            const matchesSearch =
-                product.id.toString().includes(searchTerm) ||
-                product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                product.description
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase()) ||
-                product.price.toString().includes(searchTerm) ||
-                product.category?.name
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase());
-            const matchesCategory = categoryFilter
-                ? product.category?.name === categoryFilter
-                : true;
-            return matchesSearch && matchesCategory;
-        }) || [];
+  const filteredProducts =
+    products?.filter((product: any) => {
+        console.log("11", product.store_id, store?.id);
+
+        // Faqat shu do‘konga tegishli mahsulotlar
+        const matchesStore = store?.id ? product.store_id === store.id : true;
+
+        const matchesSearch =
+            product.id.toString().includes(searchTerm) ||
+            product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            product.description
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase()) ||
+            product.price.toString().includes(searchTerm) ||
+            product.category?.name
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase());
+
+        const matchesCategory = categoryFilter
+            ? product.category?.name === categoryFilter
+            : true;
+
+        // faqat shu dokondagi va filterlarga mos mahsulotlar
+        return matchesStore && matchesSearch && matchesCategory;
+    }) || [];
+
 
     return (
         <div className="flex">
@@ -269,8 +282,8 @@ export default function ProductsPage() {
                     Mahsulotlar
                 </h1>
                 <p className="text-gray-600 mb-4">
-                    Ushbu sahifada sizning barcha mahsulotlaringiz ro‘yxatini
-                    ko‘rishingiz va boshqarishingiz mumkin.
+                    Ushbu sahifada sizning barcha mahsulotlaringiz ro'yxatini
+                    ko'rishingiz va boshqarishingiz mumkin.
                 </p>
 
                 <div className="mb-6 flex justify-between items-center gap-4">
@@ -301,7 +314,7 @@ export default function ProductsPage() {
                         onClick={() => setIsAddModalOpen(true)}
                         className="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-300"
                     >
-                        Mahsulot qo‘shish
+                        Mahsulot qo'shish
                     </button>
                 </div>
 
@@ -344,9 +357,10 @@ export default function ProductsPage() {
                                     product.orderItems?.length || 0;
                                 const cartCount =
                                     product.cartItems?.length || 0;
+                                
 
                                 return (
-                                    <tr
+                                    <tr  
                                         key={product.id}
                                         className="hover:bg-gray-100 cursor-pointer"
                                         onClick={() => {
@@ -407,7 +421,7 @@ export default function ProductsPage() {
                                                     }}
                                                     className="text-red-600 hover:text-red-700"
                                                 >
-                                                    O‘chirish
+                                                    O'chirish
                                                 </button>
                                             </div>
                                         </td>
@@ -424,7 +438,7 @@ export default function ProductsPage() {
                         <h2 className="text-2xl font-bold mb-4 text-gray-800">
                             {editingProductId
                                 ? "Mahsulotni Yangilash"
-                                : "Yangi Mahsulot Qo‘shish"}
+                                : "Yangi Mahsulot Qo'shish"}
                         </h2>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
@@ -700,7 +714,7 @@ export default function ProductsPage() {
                                                     }
                                                     className="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 transition-colors duration-300"
                                                 >
-                                                    O‘chirish
+                                                    O'chirish
                                                 </button>
                                             </div>
                                         ) : null;
