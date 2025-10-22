@@ -53,11 +53,15 @@ export default function ProductsPage() {
         if (store) {
             setProductData((prev) => ({
                 ...prev,
-                seller_id: store.seller?.id,
+                seller_id: store.seller_id,
                 store_id: store.id,
             }));
+            // console.log("SS",store);
+            // console.log("SS1",store.seller_id);
+            
         }
     }, [store]);
+            console.log("SS1",productData);
 
     const {
         data: products,
@@ -108,6 +112,8 @@ export default function ProductsPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!productData.seller_id || !productData.store_id) {
+            console.log("a",productData);
+            
             console.error("Seller ID yoki Store ID mavjud emas");
             return;
         }

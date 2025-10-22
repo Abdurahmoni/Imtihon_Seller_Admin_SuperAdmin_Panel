@@ -10,7 +10,6 @@ export default function LoginPage() {
             window.location.href = "/superadmin";
         }
     }
-        console.log("aa");
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -18,10 +17,12 @@ export default function LoginPage() {
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
         const { data } = await login({ email: email, password: password });
-        console.log(data);
+        console.log("aa",data);
 
         if (data?.user?.role === "superadmin") {
             localStorage.setItem("superadminToken", data.token.accsess);
+            console.log("superadminToken", data.token.accsess);
+            
             localStorage.setItem("superadmin", JSON.stringify(data.user));
             window.location.href = "/superadmin";
         } else {

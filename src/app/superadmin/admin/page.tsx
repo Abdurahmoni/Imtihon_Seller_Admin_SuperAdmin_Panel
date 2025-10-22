@@ -111,7 +111,7 @@ export default function AdminPage() {
         setIsSidebarOpen(open);
     };
 
-    // Admin qo‘shish funksiyasi
+    // Admin qo'shish funksiyasi
     const handleAddAdmin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
@@ -240,7 +240,7 @@ export default function AdminPage() {
     if (error)
         return (
             <div className="flex-1 p-4 ml-64 mt-[72px] text-red-500">
-                Xatolik yuz berdi: {(error as any)?.message}
+                Xatolik yuz berdi: {(error as any)?.message} 
             </div>
         );
 
@@ -251,8 +251,8 @@ export default function AdminPage() {
                     Adminlar
                 </h1>
                 <p className="text-gray-600 mb-4">
-                    Ushbu sahifada barcha adminlar ro‘yxatini ko‘rishingiz,
-                    qo‘shishingiz, tahrirlashingiz va o‘chirishingiz mumkin.
+                    Ushbu sahifada barcha adminlar ro'yxatini ko'rishingiz,
+                    qo'shishingiz, tahrirlashingiz va o'chirishingiz mumkin.
                 </p>
 
                 <div className="mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
@@ -265,7 +265,7 @@ export default function AdminPage() {
                         onClick={() => setIsAddModalOpen(true)}
                         className="w-full md:w-auto bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-300"
                     >
-                        Admin qo‘shish
+                        Admin qo'shish
                     </button>
                 </div>
 
@@ -324,7 +324,7 @@ export default function AdminPage() {
                                             }
                                             className="text-teal-600 hover:text-teal-700 underline"
                                         >
-                                            Ruxsatlarni ko‘rish/tahrirlash
+                                            Ruxsatlarni ko'rish/tahrirlash
                                         </button>
                                     </td>
                                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
@@ -343,7 +343,7 @@ export default function AdminPage() {
                                                 }
                                                 className="text-red-600 hover:text-red-700"
                                             >
-                                                O‘chirish
+                                                O'chirish
                                             </button>
                                         </div>
                                     </td>
@@ -357,7 +357,7 @@ export default function AdminPage() {
                     <div className="fixed inset-0 bg-black bg-opacity-50 z-60 flex items-center justify-center">
                         <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md md:max-w-lg lg:max-w-xl">
                             <h2 className="text-2xl font-bold mb-4 text-gray-800">
-                                Yangi Admin Qo‘shish
+                                Yangi Admin Qo'shish
                             </h2>
                             <form
                                 onSubmit={handleAddAdmin}

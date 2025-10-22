@@ -6,8 +6,9 @@ export const authApi = createApi({
         baseUrl: "http://localhost:4000",
         prepareHeaders: (headers, { getState }) => {
             if (typeof window !== "undefined") {
-                const href = window.location.href.split("/")[2];
-
+                const href = window.location.href.split("/")[3];
+                console.log("1",href);
+                
                 let token = localStorage.getItem("userToken");
 
                 if (href === "superadmin") {
@@ -15,7 +16,7 @@ export const authApi = createApi({
                 } else if (href === "seller") {
                     token = localStorage.getItem("sellerToken");
                 }
-
+ 
                 if (token) {
                     headers.set("authorization", `Bearer ${token}`);
                 }
